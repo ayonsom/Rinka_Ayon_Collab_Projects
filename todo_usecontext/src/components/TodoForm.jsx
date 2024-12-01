@@ -8,37 +8,78 @@ const TodoForm = () => {
   const [originalTodo, setOriginalTodo] = useState([...todo]);
 
   // console.log("todo :",todo)
-  const [sortingOrder, setSortingOrder] = useState(undefined)
+  const [sortingOrder, setSortingOrder] = useState("all")
   
-  const handleSortByStatus=(e)=>{
-    // console.dir(e.target.value)
-    // const [sortingOrder, setSortingOrder] = useState("Pending")
-    let tasksDone = [];
-    let tasksPending = []
-    todo.forEach(element => {
-      element.completed === true? tasksDone.push(element) : tasksPending.push(element);      
-    });
-    
-    // switch (e.target.value) {
-    //   case false:
-    //     setTodo([...tasksPending,...tasksDone])
-    //     break;
-    //   case true:
-    //     setTodo([...tasksDone,...tasksPending])
+ // by rinka todos appear according to selected status
+  // const handleSortByStatus = (e) => {
+  //   const order = e.target.value;
+  //   setSortingOrder(order);
 
-    //   case "All":
-    //     setTodo([...todo])
-    //     break;  
-    //   default:
-    //     setTodo([...todo])
-    //     break;
-    // }
-    // console.log(e.target.value);
-    console.log(tasksPending)
-    if (e.target.value === "false"){setTodo([...tasksPending,...tasksDone])}
-    else if(e.target.value=== "true"){setTodo([...tasksDone,...tasksPending])}
-    else{setTodo([...todo])}
-  }
+  //   if (order === "all") {
+  //     setTodo(originalTodo);
+  //   } else {
+  //     const isCompleted = order === "true";
+  //     const filteredTodos = originalTodo.filter((todo) => todo.completed === isCompleted);
+  //     setTodo(filteredTodos);
+  //   }
+  // };
+
+
+  // by rinka all todos but appear first according to selecteion
+  const handleSortByStatus = (e) => {
+    const order = e.target.value;
+    setSortingOrder(order);
+  
+    let tasksDone = originalTodo.filter((task) => task.completed === true);
+    let tasksPending = originalTodo.filter((task) => task.completed === false);
+  
+    if (order === "all") {
+      // setTodo([...originalTodo]);
+      setTodo(originalTodo)
+    } else if (order === "true") {
+      setTodo([...tasksDone, ...tasksPending]); 
+    } else {
+      setTodo([...tasksPending, ...tasksDone]); 
+    }
+  };
+  
+
+
+  // done by ayon 
+  // const handleSortByStatus=(e)=>{
+  //   // console.dir(e.target.value)
+  //   // const [sortingOrder, setSortingOrder] = useState("Pending")
+  //   let tasksDone = [];
+  //   let tasksPending = []
+   
+  //   todo.forEach(element => {
+  //     element.completed === true? tasksDone.push(element) : tasksPending.push(element);      
+  //   });
+   
+  //   console.log(tasksPending,"1");
+  //   console.log(tasksDone,"2");
+  //   console.log(sortingOrder,"order");
+    
+  //   // switch (e.target.value) {
+  //   //   case false:
+  //   //     setTodo([...tasksPending,...tasksDone])
+  //   //     break;
+  //   //   case true:
+  //   //     setTodo([...tasksDone,...tasksPending])
+
+  //   //   case "All":
+  //   //     setTodo([...todo])
+  //   //     break;  
+  //   //   default:
+  //   //     setTodo([...todo])
+  //   //     break;
+  //   // }
+  //   // console.log(e.target.value);
+  //   console.log(tasksPending)
+  //   if (e.target.value === "false"){setTodo([...tasksPending,...tasksDone])}
+  //   else if(e.target.value=== "true"){setTodo([...tasksDone,...tasksPending])}
+  //   else{setTodo([...todo])}
+  // }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -59,7 +100,9 @@ const TodoForm = () => {
   //     console.log("todo:",todo)
   // },[todo])
 
-
+ 
+  console.log(originalTodo,"3");
+  
   return (
     <div>
       Feel free to use this ToDo application.
@@ -80,7 +123,7 @@ const TodoForm = () => {
         <label>
           Sort by Status `<>&nbsp</>`
           <select value={sortingOrder} onChange={handleSortByStatus}>
-            <option value={undefined}>All</option>
+            <option value={"all"}>All</option>
             <option value={true}>Completed</option>
             <option value={false}>Pending</option>
           </select>
