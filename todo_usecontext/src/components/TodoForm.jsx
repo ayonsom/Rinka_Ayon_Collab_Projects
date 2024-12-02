@@ -8,7 +8,7 @@ const TodoForm = () => {
   const [originalTodo, setOriginalTodo] = useState([...todo]);
 
   // console.log("todo :",todo)
-  const [sortingOrder, setSortingOrder] = useState(undefined)
+  // const [sortingOrder, setSortingOrder] = useState(undefined)
   
   const handleSortByStatus=(e)=>{
     // console.dir(e.target.value)
@@ -19,25 +19,10 @@ const TodoForm = () => {
       element.completed === true? tasksDone.push(element) : tasksPending.push(element);      
     });
     
-    // switch (e.target.value) {
-    //   case false:
-    //     setTodo([...tasksPending,...tasksDone])
-    //     break;
-    //   case true:
-    //     setTodo([...tasksDone,...tasksPending])
-
-    //   case "All":
-    //     setTodo([...todo])
-    //     break;  
-    //   default:
-    //     setTodo([...todo])
-    //     break;
-    // }
-    // console.log(e.target.value);
-    console.log(tasksPending)
+    // console.log(tasksPending)
     if (e.target.value === "false"){setTodo([...tasksPending,...tasksDone])}
     else if(e.target.value=== "true"){setTodo([...tasksDone,...tasksPending])}
-    else{setTodo([...todo])}
+    else{setTodo(originalTodo)}
   }
 
   const handleSubmit = (e) => {
@@ -52,6 +37,13 @@ const TodoForm = () => {
       title: inputText,
       completed: false
     }, ...todo]);
+
+    setOriginalTodo([{
+      id: Date.now(),
+      title: inputText,
+      completed: false
+    }, ...todo]);
+    
     setInputText('')
   }
 
@@ -79,7 +71,7 @@ const TodoForm = () => {
         {/* <button type='button' onClick={handleSortByStatus}>Sort by Status</button> */}
         <label>
           Sort by Status `<>&nbsp</>`
-          <select value={sortingOrder} onChange={handleSortByStatus}>
+          <select  onChange={handleSortByStatus}>
             <option value={undefined}>All</option>
             <option value={true}>Completed</option>
             <option value={false}>Pending</option>
