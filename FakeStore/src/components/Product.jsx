@@ -22,12 +22,14 @@ const Product = () => {
     },[])
 
     return (
-        <div style={{display : "grid", gridTemplateColumns : "repeat(3, 1fr)", gap:"50px 50px" }}>
+        <div className='products-container'>
             {data.map((el)=>(
-                <div key={el.id} style={{padding: "15px" ,width : "300px", height : "450px", border:"1px solid grey", overflowY:"scroll"}}>
-                    <img style={{width : "150px"}} src={el.image} alt="ProductImage" />
-                    <h3>{el.title}</h3>
-                    <p style={{}}>{el.description}</p>
+                <div className='product-card' key={el.id}>
+                    <img style={{maxWidth : "250px",maxHeight : "200px"}} src={el.image} alt="ProductImage" />
+                    <div >
+                        <h3>{el.title}</h3>
+                        <p style={{}}>{el.description}</p>
+                    </div>
                 </div>
             ))}
         </div>

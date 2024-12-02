@@ -1,3 +1,27 @@
+.products-container{
+ display: grid; 
+ grid-template-columns: repeat(3, 1fr);
+ gap: 50px;
+}
+.product-card{
+  box-shadow: rgba(147, 1, 192, 0.466) 0px 2px 8px 0px;
+  background: #ffffff;
+  border-radius: 30px;
+  padding: 15px;
+  width: 300px;
+  height: 450px;
+  overflow-y: scroll;
+}
+.product-card:hover, .scrollable-content:active, .scrollable-content:focus {
+  overflow-y: scroll; /* Show scrollbar on interaction */
+  box-shadow: rgb(195, 0, 255) 0px 2px 8px 0px;
+  /* width: 330px;
+  height: 495px; */
+  transform: scale(1.1) ; /* Magnify by 10% */
+  transition: transform 0.2s ease-in-out; /* Animation */
+  }
+
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -23,6 +47,7 @@ a:hover {
 }
 
 body {
+  background-color: rgba(241, 241, 241, 0.322);
   margin: 0;
   display: flex;
   place-items: center;
