@@ -5,32 +5,28 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
     const navigate = useNavigate();
-    const {isAuth, setIsAuth, userDetails,setUserDetails} = useContext(AuthContext);
+    const {isAuth, setIsAuth, setUserDetails} = useContext(AuthContext);
     // console.log("Login : ", userDetails);
-    
+    const userDetails = JSON.parse(localStorage.getItem("loginData"));
+    // console.log("localStorage : ", userDetails);    
     const [formData, setFormData] = useState({email : "", password : ""})
-    // console.log(formData);
-
-    
+    // console.log(formData);    
     const handleSubmit = (e) =>{
         e.preventDefault();
-        if(formData.email == userDetails.email){
-            if(formData.password==userDetails.password){
-                setIsAuth(true);                
-                window.alert("Login Success, Redirecting to /Products")
-                console.log(isAuth);
-                
-                setTimeout(()=>{                    
-                    navigate("/Product")                    
-                },1300)
-            }else{
-                window.alert("Invalid Credentials or User not Registered")
-            }
-        }
-        else{
+        // console.log(userDetails);
+        const user = userDetails.find(
+            (el)=> el.email===formData.email && el.password===formData.password
+        )
+
+        if (user) {
+            setIsAuth(true);
+            window.alert("Login Success, Redirecting to Products page...");
+            setTimeout(()=>{
+                navigate('/Product')
+            },1000)
+        }else{
             window.alert("Invalid Credentials or User not Registered")
         }
-
     }
   return (
     <div>

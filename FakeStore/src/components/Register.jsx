@@ -4,14 +4,16 @@ import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 const Register = () => {
     const navigate = useNavigate();
-    const {isAuth, userDetails,setUserDetails} = useContext(AuthContext);
+    const {userDetails,setUserDetails} = useContext(AuthContext);
     const [formData, setFormData] = useState({email : "", password : ""})
     // console.log("Register : ", userDetails);
     const handleSubmit = (e) =>{
         // console.dir(e.target)
-        e.preventDefault();
-        setUserDetails(formData);
+        e.preventDefault();        
+        
+        setUserDetails([...userDetails,formData]);
         setFormData({email : "", password : ""})
+        localStorage.setItem("loginData", JSON.stringify(userDetails))
         window.alert("Reigstration Successful, redirecting to /Login")
         setTimeout(()=>{
           
@@ -20,7 +22,9 @@ const Register = () => {
       },1300)
     }
   return (
+    
     <div>
+      {/* {console.log("UserDetails : ",userDetails)} */}
       <h1>Please register by Entering details below:- </h1>
       <form onSubmit={handleSubmit}>
         <label htmlFor="email"><strong>Enter Email : </strong></label>
